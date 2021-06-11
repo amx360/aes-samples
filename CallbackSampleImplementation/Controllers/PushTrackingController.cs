@@ -24,9 +24,7 @@ namespace CallbackSampleImplementation.Controllers
         public IConfiguration configuration { get; }
 
         public PushTrackingController(IConfiguration config)
-        {
-            configuration = config;
-        }
+            => configuration = config;
 
         #endregion
 
@@ -51,7 +49,7 @@ namespace CallbackSampleImplementation.Controllers
         [HttpPost]
         public async Task<ActionResult> POST(PushTrackingData data)
         {
-            if (data == null)
+            if (data.IsNull())
                 return new BadRequestResult();
 
             try
@@ -76,7 +74,7 @@ namespace CallbackSampleImplementation.Controllers
                 if (data.Acknowledge == AcknowledgeType.Failure)
                 {
                     //CHECK EXCEPTIONS FOR FAILURE DETAILS
-                    if (data.ResponseExceptions != null)
+                    if (data.hasExceptions())
                     {
                         foreach (var excep in data.ResponseExceptions.ToList())
                         {

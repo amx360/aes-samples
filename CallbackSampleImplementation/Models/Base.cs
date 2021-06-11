@@ -69,18 +69,20 @@ namespace CallbackSampleImplementation.Models
 
     #region Base Response
 
-    public class BaseCallbackResponse
+    /// <summary>
+    /// Base or Abstract Class (This does not work using 'abstract class' so use caution)  inherited by all Concrete Response Classes
+    /// </summary>
+    public class BaseCallbackResponse: BaseCallbackResponse.IResponse
     {
         /// <summary>
-        /// A flag indicating success or failure of the web service response back to the 
-        /// client. Default is failure. 
+        /// Functional Acknowledgement: success or failure
         /// </summary>
         [JsonProperty("ack")]
         public AcknowledgeType Acknowledge { get; set; } = AcknowledgeType.Failure;
 
 
         /// <summary>
-        /// Message back to client. Mostly used when a web service failure occurs. 
+        /// List of Exceptions
         /// </summary>
         [JsonProperty("exceptions")]
         public IList<ResponseException> ResponseExceptions { get; set; }
@@ -90,6 +92,31 @@ namespace CallbackSampleImplementation.Models
         /// </summary>
         [JsonProperty("ctoken")]
         public string ClientToken { get; set; }
+
+
+        #region Methods
+
+        public bool hasExceptions()
+            => !this.ResponseExceptions.IsNullOrEmpty();
+
+        #endregion
+
+        #region Nested Interface
+
+        /// <summary>
+        /// Usage: Arguments, Delegates, type casting etc.
+        /// </summary>
+        internal interface IResponse
+        {
+            AcknowledgeType Acknowledge { get; set; }
+            IList<ResponseException> ResponseExceptions { get; set; }
+            string ClientToken { get; set; }
+
+            bool hasExceptions();
+        }
+
+        #endregion
+
 
     }
 
