@@ -70,12 +70,12 @@ namespace CallbackSampleImplementation.Controllers
                 switch (data.Acknowledge)
                 {
                     case AcknowledgeType.Failure:
-                       if (!await processFailure(messagekey, messageid, data, httpcode))
+                       if (!await processFailureAsync(messagekey, messageid, data, httpcode))
                             return this.StatusCode((int)httpcode.GetValueOrDefault());
                         break;
 
                     case AcknowledgeType.Success:
-                        if (!await processSuccess(messagekey, messageid, data, httpcode))
+                        if (!await processSuccessAsync(messagekey, messageid, data, httpcode))
                             return this.StatusCode((int)httpcode.GetValueOrDefault());
 
                         break;
@@ -96,7 +96,7 @@ namespace CallbackSampleImplementation.Controllers
 
         #region Protected or Internal Methods
 
-        public async Task<bool> processFailure(string messagekey,string messageid,PushNotificationData data, HttpStatusCode? httpcode)
+        public async Task<bool> processFailureAsync(string messagekey,string messageid,PushNotificationData data, HttpStatusCode? httpcode)
         {
             string clientbol = data.CBL;  // BILL OF LADING NUMBER PROVIDED BY CLIENT
             string reference = data.CREFERENCES?.FirstOrDefault(); // CLIENT REFERENCES
@@ -142,7 +142,7 @@ namespace CallbackSampleImplementation.Controllers
             return true;
         }
 
-        public async Task<bool> processSuccess(string messagekey, string messageid, PushNotificationData data, HttpStatusCode? httpcode)
+        public async Task<bool> processSuccessAsync(string messagekey, string messageid, PushNotificationData data, HttpStatusCode? httpcode)
         {
             string clientbol = data.CBL;  // BILL OF LADING NUMBER PROVIDED BY CLIENT
             string reference = data.CREFERENCES?.FirstOrDefault(); // CLIENT REFERENCES
