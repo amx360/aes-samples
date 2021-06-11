@@ -65,21 +65,22 @@ namespace CallbackSampleImplementation.Controllers
                 //Some Async Operation 
                 await Task.Delay(100);
 
-                HttpStatusCode? httpcode = null;
+
+                ProcessTaskResult taskresult = null;
 
                 switch (data.Acknowledge)
                 {
                     case AcknowledgeType.Failure:
-                       if (!await processFailureAsync(messagekey, messageid, data, httpcode))
-                            return this.StatusCode((int)httpcode.GetValueOrDefault());
+                        taskresult = await processFailureAsync(messagekey, messageid, data);
                         break;
 
                     case AcknowledgeType.Success:
-                        if (!await processSuccessAsync(messagekey, messageid, data, httpcode))
-                            return this.StatusCode((int)httpcode.GetValueOrDefault());
-
+                        taskresult = await processSuccessAsync(messagekey, messageid, data);
                         break;
                 }
+
+                if (!taskresult.success)
+                    return this.StatusCode((int)taskresult.httpcode.GetValueOrDefault());
 
             }
             catch (Exception)
@@ -96,7 +97,7 @@ namespace CallbackSampleImplementation.Controllers
 
         #region Protected or Internal Methods
 
-        public async Task<bool> processFailureAsync(string messagekey,string messageid,PushNotificationData data, HttpStatusCode? httpcode)
+        public async Task<ProcessTaskResult> processFailureAsync(string messagekey,string messageid,PushNotificationData data)
         {
             string clientbol = data.CBL;  // BILL OF LADING NUMBER PROVIDED BY CLIENT
             string reference = data.CREFERENCES?.FirstOrDefault(); // CLIENT REFERENCES
@@ -131,18 +132,17 @@ namespace CallbackSampleImplementation.Controllers
             {
                 //SHOULD NOT HAPPEN THERE SHOULD ALWAYS BE A REASON FOR A FAILURE
                 //PLEASE ALERT AES WITH RESPONSE
-                httpcode = HttpStatusCode.Ambiguous;
 
                 //Some Async Operation 
                 await Task.Delay(100);
 
-                return false;
+                return new ProcessTaskResult(HttpStatusCode.Ambiguous);
             }
 
-            return true;
+            return new ProcessTaskResult();
         }
 
-        public async Task<bool> processSuccessAsync(string messagekey, string messageid, PushNotificationData data, HttpStatusCode? httpcode)
+        public async Task<ProcessTaskResult> processSuccessAsync(string messagekey, string messageid, PushNotificationData data)
         {
             string clientbol = data.CBL;  // BILL OF LADING NUMBER PROVIDED BY CLIENT
             string reference = data.CREFERENCES?.FirstOrDefault(); // CLIENT REFERENCES
@@ -185,12 +185,11 @@ namespace CallbackSampleImplementation.Controllers
                     {
                         //SHOULD NOT HAPPEN THERE SHOULD ALWAYS BE A REASON FOR AN ERROR
                         //PLEASE ALERT AES WITH RESPONSE
-                        httpcode = HttpStatusCode.Ambiguous;
 
                         //Some Async Operation 
                         await Task.Delay(100);
 
-                        return false;
+                        return new ProcessTaskResult(HttpStatusCode.Ambiguous);
                     }
 
                     break;
@@ -208,15 +207,14 @@ namespace CallbackSampleImplementation.Controllers
                 case PushNotificationData.NotifictionType.UNKNOWN:
                     //SHOULD NOT HAPPEN THERE SHOULD ALWAYS BE A FINITE STRING VALUE FOR NOTIFICATION TYPE
                     //PLEASE ALERT AES WITH RESPONSE
-                    httpcode = HttpStatusCode.Ambiguous;
-                    return false;
+                    return new ProcessTaskResult(HttpStatusCode.Ambiguous);
             }
 
 
             //Some Async Operation 
             await Task.Delay(100);
 
-            return true;
+            return new ProcessTaskResult();
         }
 
         #endregion

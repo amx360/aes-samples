@@ -5,6 +5,35 @@ using System.Threading.Tasks;
 
 namespace CallbackSampleImplementation
 {
+
+    #region Tasks
+
+    public class ProcessTaskResult
+    {
+        public bool success { get; set; } = true;
+        public System.Net.HttpStatusCode? httpcode { get; set; } = null;
+
+
+        #region Constructors
+
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public ProcessTaskResult() : base() { }
+
+
+        public ProcessTaskResult(System.Net.HttpStatusCode failurecode) : this()
+        {
+            this.success = false;
+            this.httpcode = failurecode;
+        }
+
+        #endregion
+
+    }
+
+    #endregion
+
     /// <summary>
     /// AES
     /// Extensions
