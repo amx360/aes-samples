@@ -8,6 +8,9 @@ namespace CallbackSampleImplementation
 
     #region Tasks
 
+    /// <summary>
+    /// Task Result Wrapper Object
+    /// </summary>
     public class ProcessTaskResult
     {
         public bool success { get; set; } = true;
@@ -19,14 +22,15 @@ namespace CallbackSampleImplementation
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public ProcessTaskResult() : base() { }
+        public ProcessTaskResult(bool _success = true) : base()
+            => this.success = _success;
 
-
-        public ProcessTaskResult(System.Net.HttpStatusCode failurecode) : this()
-        {
-            this.success = false;
-            this.httpcode = failurecode;
-        }
+        /// <summary>
+        /// Overloaded Constructor for failures
+        /// </summary>
+        /// <param name="failurecode">http status code</param>
+        public ProcessTaskResult(System.Net.HttpStatusCode failurecode) : this(false)
+            => this.httpcode = failurecode;
 
         #endregion
 
