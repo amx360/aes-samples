@@ -45,7 +45,7 @@ namespace CallbackSampleImplementation
     public static class Auxilary
     {
 
-        #region Objects Extensions
+        #region Object Extensions
 
 
 

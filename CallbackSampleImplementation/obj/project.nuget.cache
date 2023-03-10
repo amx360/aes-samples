@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1BWjHW+FRuEZs9LzxUJX95g6L1r1/t2JnrI161R24kfi10noZ8usmoqU/UrjvBiZKVFyTILK2hCYyz513PjDwg==",
+  "dgSpecHash": "MFP5jPm2u20k2VPWgvqo2xvNPxFkHdS9or4LCcEMyKPVYfGAkSGvf/HAjz+EJ8RyorJ7YLL41jvl4ugZntyc5A==",
   "success": true,
   "projectFilePath": "C:\\AES-SDKS\\CallbackSampleCode\\CallbackSampleImplementation\\CallbackSampleImplementation.csproj",
   "expectedPackageFiles": [
@@ -17,7 +17,8 @@
     "C:\\Users\\alex\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\alex\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
     "C:\\Users\\alex\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
-    "C:\\Users\\alex\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+    "C:\\Users\\alex\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
+    "C:\\Users\\alex\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
   ],
   "logs": []
 }
