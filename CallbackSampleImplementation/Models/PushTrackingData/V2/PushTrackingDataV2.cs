@@ -36,12 +36,11 @@ namespace CallbackSampleImplementation.Models
         public string cnt { get; set; }
 
         /// <summary>
-        /// Client Shipment References
-        ///     fitted for e2open BlueJay
-        ///     contains message key and id
+        /// TMS Shipment References
+        ///     fitted for e2open BluJay and CWO
         /// </summary>
-        [JsonProperty("references")]
-        public SRQReference references { get; set; }
+        [JsonProperty("tms")]
+        public TMS tms { get; set; }
 
         /// <summary>
         /// Tracking Results for the CBL (Carrier Bill of Lading) and/or CNT (Container)

@@ -32,8 +32,6 @@ namespace CallbackSampleImplementation.Models
             /// </remarks>
             public string key { get; set; }
 
-
-
             #endregion
 
         }
